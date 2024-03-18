@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static FruitStateMachine;
+
 
 public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 {
@@ -13,7 +13,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
     protected bool IsTransitioningState = false;
 
     [Header("For Debug Purposes, Doesn't Affect State Machine")]
-    public EState CurrentFruitState;
+    public EState CurrentStateDebug;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         CurrentState.EnterState();
         IsTransitioningState = false;
 
-        CurrentFruitState = stateKey;
+        CurrentStateDebug = stateKey;
     }
 
     void OnTriggerEnter(Collider other)

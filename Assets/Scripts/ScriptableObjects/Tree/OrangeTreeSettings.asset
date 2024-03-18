@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6556ff0834e70814b9444fd68c2de38b, type: 3}
+  m_Name: OrangeTreeSettings
+  m_EditorClassIdentifier: 
+  fruitPrefabs:
+  - {fileID: 3900510228853476816, guid: b07b1c5c8cf0ade4eb495d794c3a62fe, type: 3}
+  spawnRate: 20
