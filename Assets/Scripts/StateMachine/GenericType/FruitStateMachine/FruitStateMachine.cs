@@ -21,7 +21,7 @@ public class FruitStateMachine : StateManager<FruitStateMachine.EFruitState>
 
     private void Awake()
     {
-        _context = new(this, _settings, transform, GetComponent<MeshRenderer>().materials);
+        _context = new(_settings, transform, GetComponent<MeshRenderer>().materials);
 
         InitializeStates();
     }
@@ -31,6 +31,7 @@ public class FruitStateMachine : StateManager<FruitStateMachine.EFruitState>
         States.Add(EFruitState.Growing, new FruitGrowingState(_context, EFruitState.Growing));
         States.Add(EFruitState.Ripening, new FruitRipeningState(_context, EFruitState.Ripening));
         States.Add(EFruitState.Decaying, new FruitDecayingState(_context, EFruitState.Decaying));
+        States.Add(EFruitState.Idle, new FruitIdleState(_context, EFruitState.Idle));
 
         CurrentState = States[EFruitState.Idle];
     }
