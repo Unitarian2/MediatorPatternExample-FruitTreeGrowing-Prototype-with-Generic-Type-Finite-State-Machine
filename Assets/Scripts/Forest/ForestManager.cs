@@ -6,16 +6,22 @@ using UnityUtils;
 public class ForestManager : MonoBehaviour
 {
     [SerializeField] private Transform treeParent;
-    private GameObject[] trees;
+    private TreeStateMachine[] trees;
 
     private void Awake()
     {
-        trees = treeParent.GetAllChildrenAsGameObject();
+        trees = treeParent.GetAllChildren<TreeStateMachine>();
     }
 
     void Start()
     {
-        
+        if(trees.Length > 0)
+        {
+            foreach(TreeStateMachine tree in trees)
+            {
+                tree.ActivateTree();
+            }
+        }
     }
 
     

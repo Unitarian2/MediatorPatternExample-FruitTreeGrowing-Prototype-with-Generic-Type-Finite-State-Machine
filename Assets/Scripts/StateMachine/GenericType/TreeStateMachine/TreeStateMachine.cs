@@ -25,7 +25,7 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
     {
         fruitFactory = GetComponent<FruitFactory>();
 
-        _context = new(_settings, spawnPointParent.GetAllChildrenAsGameObject(), spawnParent, fruitFactory);
+        _context = new(_settings, spawnPointParent.GetAllChildGameObject(), spawnParent, fruitFactory);
         _context.Init();
 
         InitializeStates();
@@ -39,4 +39,8 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
         CurrentState = States[ETreeState.Idle];
     }
 
+    public void ActivateTree()
+    {
+        CurrentState = States[ETreeState.Active];
+    }
 }

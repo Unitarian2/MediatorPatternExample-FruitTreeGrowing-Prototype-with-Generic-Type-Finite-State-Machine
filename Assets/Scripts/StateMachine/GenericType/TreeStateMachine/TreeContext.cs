@@ -5,6 +5,7 @@ using UnityEngine;
 public class TreeContext
 {
     private TreeSettings _settings;
+    
 
     //Fruit Spawns
     private GameObject[] _spawns;
@@ -31,27 +32,39 @@ public class TreeContext
 
     public void SpawnFruit()
     {
-        if(_assignedFruit == null)
+        var spawnPoint = GetSpawnPoint();
+        GameObject spawnedFruit = null;
+
+        if (_assignedFruit == null)
         {
             //Her aðacýn bir prefab'i olabilir. Ancak farklý prefab türlerimiz olabilir. Elma aðacýndaki elma türleri gibi düþünülebilir.
             int index = Random.Range(0, _settings.fruitPrefabs.Length);
             GameObject chosenFruit = _settings.fruitPrefabs[index];
 
-            if (_factory.GetFruit(chosenFruit, _spawnParent, GetSpawnPoint()))
-            {
-                //Baþarýlý spawn.
-            }
-            
+            spawnedFruit = _factory.GetFruit(chosenFruit, _spawnParent, spawnPoint);         
         }
         else
         {
-            if (_factory.GetFruit(_assignedFruit, _spawnParent, GetSpawnPoint()))
-            {
-                //Baþarýlý spawn.
-            }
-
+            spawnedFruit = _factory.GetFruit(_assignedFruit, _spawnParent, spawnPoint);
         }
-        
+
+
+        if (spawnedFruit != null)
+        {
+            //Baþarýlý spawn.
+            spawnedFruit.GetComponent<FruitStateMachine>().ActivateFruit(spawnPoint, this);
+        }
+    }
+
+    public void DeactivateSpawnPoint(GameObject spawnPoint)
+    {
+        foreach(var spawn in _spawns)
+        {
+            if(spawn == spawnPoint)
+            {
+                spawn.SetActive(false);
+            }
+        }
     }
 
     public GameObject GetSpawnPoint()

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitPrefabs:
   - {fileID: 6301937527083522850, guid: a5b4b43842b38c0488673ee43ad71d03, type: 3}
-  spawnRate: 10
+  spawnTime: 10

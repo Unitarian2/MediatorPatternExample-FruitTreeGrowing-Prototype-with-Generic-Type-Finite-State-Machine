@@ -48,6 +48,7 @@ public class TreeActiveState : TreeState
         {
             //Spawn a Fruit
             Context.SpawnFruit();
+            timer = 0f;
         }
     }
 }
