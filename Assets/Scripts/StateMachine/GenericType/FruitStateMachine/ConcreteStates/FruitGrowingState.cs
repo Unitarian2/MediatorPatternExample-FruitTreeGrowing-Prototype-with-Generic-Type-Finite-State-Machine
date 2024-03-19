@@ -30,6 +30,7 @@ public class FruitGrowingState : FruitState
     {
         if(Context.Settings.GrowTime <= CurrentTimer)
         {
+            //Fruit büyüdü. Mediator'a haber ver
             return FruitStateMachine.EFruitState.Ripening;
         }
 

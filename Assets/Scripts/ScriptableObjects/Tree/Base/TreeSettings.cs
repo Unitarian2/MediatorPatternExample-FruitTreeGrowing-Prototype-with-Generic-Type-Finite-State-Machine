@@ -6,6 +6,6 @@ using UnityEngine;
 public class TreeSettings : ScriptableObject
 {
     public GameObject[] fruitPrefabs;
-    [Range(5f, 40f)] public float spawnRate;
+    [Range(5f, 40f)] public float spawnTime;
     
 }

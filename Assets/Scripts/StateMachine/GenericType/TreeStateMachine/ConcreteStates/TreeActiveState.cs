@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TreeActiveState : TreeState
 {
+    float timer;
+
     public TreeActiveState(TreeContext treeContext, TreeStateMachine.ETreeState estate) : base(treeContext, estate)
     {
         TreeContext ctx = treeContext;
@@ -11,12 +13,12 @@ public class TreeActiveState : TreeState
 
     public override void EnterState()
     {
-        
+        timer = 0f;
     }
 
     public override void ExitState()
     {
-        
+        timer = 0f;
     }
 
     public override TreeStateMachine.ETreeState GetNextState()
@@ -41,6 +43,11 @@ public class TreeActiveState : TreeState
 
     public override void UpdateState()
     {
-        
+        timer += Time.deltaTime;
+        if(timer >= Context.Settings.spawnTime)
+        {
+            //Spawn a Fruit
+            Context.SpawnFruit();
+        }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityUtils;
 
 public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
 {
@@ -13,12 +13,20 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
 
     private TreeContext _context;
 
+    [Header("Fruit References")]
+    [SerializeField] private Transform spawnPointParent;
+    [SerializeField] private Transform spawnParent;
+    FruitFactory fruitFactory;
+
     [Header("ScriptableObject Data")]
     [SerializeField] private TreeSettings _settings;
 
     private void Awake()
     {
-        _context = new(_settings);
+        fruitFactory = GetComponent<FruitFactory>();
+
+        _context = new(_settings, spawnPointParent.GetAllChildrenAsGameObject(), spawnParent, fruitFactory);
+        _context.Init();
 
         InitializeStates();
     }
@@ -28,7 +36,7 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
         States.Add(ETreeState.Idle, new TreeIdleState(_context, ETreeState.Idle));
         States.Add(ETreeState.Active, new TreeActiveState(_context, ETreeState.Active));
         
-
         CurrentState = States[ETreeState.Idle];
     }
+
 }

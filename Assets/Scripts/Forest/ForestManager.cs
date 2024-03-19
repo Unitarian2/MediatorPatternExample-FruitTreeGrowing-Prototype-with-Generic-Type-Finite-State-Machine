@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityUtils;
 
 public class ForestManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private Transform treeParent;
+    private GameObject[] trees;
+
+    private void Awake()
+    {
+        trees = treeParent.GetAllChildrenAsGameObject();
+    }
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
