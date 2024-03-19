@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class TreeContext : MonoBehaviour
 {
-    private FruitSettings settings;
-    public TreeContext(FruitSettings settings)
+    private TreeSettings settings;
+    private GameObject[] spawns;
+    public TreeContext(TreeSettings settings)
     {
         this.settings = settings;
     }
+
+    public TreeSettings Settings => settings;
 }

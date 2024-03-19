@@ -14,7 +14,7 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
     private TreeContext _context;
 
     [Header("ScriptableObject Data")]
-    [SerializeField] private FruitSettings _settings;
+    [SerializeField] private TreeSettings _settings;
 
     private void Awake()
     {
