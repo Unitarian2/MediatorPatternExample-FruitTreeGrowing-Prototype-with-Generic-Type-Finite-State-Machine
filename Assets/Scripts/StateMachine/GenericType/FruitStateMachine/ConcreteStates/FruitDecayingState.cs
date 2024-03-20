@@ -26,6 +26,7 @@ public class FruitDecayingState : FruitState
         if (Context.Settings.DecayTime <= CurrentTimer)
         {
             //Burada çýkmaz sokak olan Decayed State return et.
+            return FruitStateMachine.EFruitState.Decayed;
         }
 
         return StateKey;
@@ -51,6 +52,9 @@ public class FruitDecayingState : FruitState
         CurrentTimer += Time.deltaTime;
 
         float decayProgress = Mathf.Clamp01(CurrentTimer * CurrentRate); // Çürüme ilerlemesi
+
+        float size = Mathf.Lerp(Context.Settings.endSize, Context.Settings.startSize * 1.25f, decayProgress);//Fruit çürüme süresi boyunca bir niktar küçülmeli
+        Context.Transform.localScale = new Vector3(size, size, size);
 
         Color newColor = Color.Lerp(Context.Settings.RipenedColor, Context.Settings.DecayColor, decayProgress);//Materyal rengini de deðiþiyoruz.
         Context.ChangeColor(newColor);

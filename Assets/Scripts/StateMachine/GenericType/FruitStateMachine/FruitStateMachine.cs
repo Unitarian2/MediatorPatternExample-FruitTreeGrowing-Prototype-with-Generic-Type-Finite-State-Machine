@@ -6,23 +6,29 @@ public class FruitStateMachine : StateManager<FruitStateMachine.EFruitState>
 {
     public enum EFruitState
     {
+        Idle,
         Growing,
         Ripening,
         Decaying,
-        Idle
+        Decayed,
+        Junk
     }
     
+    //Fields
     private FruitContext _context;
-    private GameObject _spawnPoint;
-    private TreeContext _treeContext;
 
     [Header("ScriptableObject Data")]
     [SerializeField] private FruitSettings _settings;
 
+    //Properties
+    public FruitContext Context => _context;
+
     private void Awake()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        _context = new(_settings, transform, GetComponent<MeshRenderer>().materials, rb);
+        Material[] mats = GetComponent<MeshRenderer>().materials;
+
+        _context = new(_settings, transform, mats, rb, gameObject, this);
 
         InitializeStates();
     }
@@ -33,27 +39,26 @@ public class FruitStateMachine : StateManager<FruitStateMachine.EFruitState>
         States.Add(EFruitState.Ripening, new FruitRipeningState(_context, EFruitState.Ripening));
         States.Add(EFruitState.Decaying, new FruitDecayingState(_context, EFruitState.Decaying));
         States.Add(EFruitState.Idle, new FruitIdleState(_context, EFruitState.Idle));
+        States.Add(EFruitState.Decayed, new FruitDecayedState(_context, EFruitState.Decayed));
+        States.Add(EFruitState.Junk, new FruitJunkState(_context, EFruitState.Junk));
 
         CurrentState = States[EFruitState.Idle];
     }
 
+    /// <summary>
+    /// Bir Fruit'in StateMachine sürecini baþlatan metod. Fruit'in spawn edildiði Tree ve Slot'un verilmesi gereklidir.
+    /// </summary>
+    /// <param name="spawnPoint"></param>
+    /// <param name="treeContext"></param>
     public void ActivateFruit(GameObject spawnPoint, TreeContext treeContext)
     {
-        _treeContext = treeContext;
-        _spawnPoint = spawnPoint;
+        _context.SetTreeInfo(treeContext, spawnPoint);
         CurrentState = States[EFruitState.Growing];
     }
 
-    public void FreeTheFruit()
-    {
-        _treeContext.DeactivateSpawnPoint(_spawnPoint);//Fruit'i aðaçtaki slot'undan çýkartýyoruz.
-        //Burada context'ten Rigidbody ulaþ ve aktifleþtir.
-    }
-
     public void DeactivateFruit()
-    {    
-        CurrentState = States[EFruitState.Idle];
+    {
+        Destroy(gameObject);
     }
 
-    
 }

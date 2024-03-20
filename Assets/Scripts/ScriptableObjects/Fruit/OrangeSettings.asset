@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrangeSettings
   m_EditorClassIdentifier: 
   GrowTime: 20
-  RipenTime: 5
+  RipenTime: 20
   DecayTime: 20
   startSize: 0.5
   endSize: 1

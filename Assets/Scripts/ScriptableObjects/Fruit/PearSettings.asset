@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PearSettings
   m_EditorClassIdentifier: 
   GrowTime: 15
-  RipenTime: 7
+  RipenTime: 15
   DecayTime: 50
   startSize: 0.3
   endSize: 1

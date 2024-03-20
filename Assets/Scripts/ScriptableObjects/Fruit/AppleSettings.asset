@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AppleSettings
   m_EditorClassIdentifier: 
   GrowTime: 10
-  RipenTime: 10
+  RipenTime: 25
   DecayTime: 30
   startSize: 0.5
   endSize: 1

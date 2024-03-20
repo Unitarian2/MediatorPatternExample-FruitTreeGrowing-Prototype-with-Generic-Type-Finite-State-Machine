@@ -22,4 +22,9 @@ public class FruitFactory : MonoBehaviour
         }
         
     }
+
+    public void DestroyFruit(GameObject gameObject)
+    {
+        Destroy(gameObject);
+    }
 }

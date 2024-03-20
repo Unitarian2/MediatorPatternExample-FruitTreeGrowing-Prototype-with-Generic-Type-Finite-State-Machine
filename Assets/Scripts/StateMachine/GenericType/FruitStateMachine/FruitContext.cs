@@ -8,18 +8,33 @@ public class FruitContext
     private Transform transform;
     private Material[] materials;
     private Rigidbody rb;
-    public FruitContext(FruitSettings settings, Transform transform, Material[] materials, Rigidbody rb)
+    private GameObject gameObject;
+    private bool isInventoryItem;
+    private float destroyTime = 20f;
+    private FruitStateMachine stateMachine;
+
+    //Tree Info
+    private TreeContext assignedTree;
+    private GameObject spawnPoint;
+    public FruitContext(FruitSettings settings, Transform transform, Material[] materials, Rigidbody rb, GameObject gameObject, FruitStateMachine stateMachine)
     {
         this.settings = settings;
         this.transform = transform;
         this.materials = materials;
         this.rb = rb;
+        this.gameObject = gameObject;
+        this.stateMachine = stateMachine;
     }
 
     public FruitSettings Settings => settings;
     public Transform Transform => transform;
-
     public Rigidbody Rigidbody { get { return rb; } set { rb = value; } }
+    public bool IsInventoryItem { get { return isInventoryItem; } set { isInventoryItem = value; } }
+
+    public TreeContext AssignedTree { get { return assignedTree; } }
+    public GameObject SpawnPoint { get { return spawnPoint; } }
+    public float DestroyTime => destroyTime;
+    public FruitStateMachine StateMachine => stateMachine;  
 
     public void ChangeColor(Color color)
     {
@@ -28,4 +43,11 @@ public class FruitContext
             mat.color = color;
         }
     }
+
+    public void SetTreeInfo(TreeContext assignedTree, GameObject spawnPoint)
+    {
+        this.assignedTree = assignedTree;
+        this.spawnPoint = spawnPoint;
+    }
+
 }

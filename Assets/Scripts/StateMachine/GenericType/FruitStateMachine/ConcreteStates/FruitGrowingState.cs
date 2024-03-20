@@ -32,6 +32,7 @@ public class FruitGrowingState : FruitState
         {
             //Fruit büyüdü. Mediator'a haber ver
             if(Context.Rigidbody != null) Context.Rigidbody.useGravity = true;// Meyveyi aðaçtan kopardýk.
+            Context.AssignedTree.DeactivateSpawnPoint(Context.SpawnPoint);
             return FruitStateMachine.EFruitState.Ripening;
         }
 
