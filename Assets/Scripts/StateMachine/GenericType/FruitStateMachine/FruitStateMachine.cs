@@ -21,7 +21,8 @@ public class FruitStateMachine : StateManager<FruitStateMachine.EFruitState>
 
     private void Awake()
     {
-        _context = new(_settings, transform, GetComponent<MeshRenderer>().materials);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        _context = new(_settings, transform, GetComponent<MeshRenderer>().materials, rb);
 
         InitializeStates();
     }

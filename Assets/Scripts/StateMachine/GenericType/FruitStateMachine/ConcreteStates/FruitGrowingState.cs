@@ -31,6 +31,7 @@ public class FruitGrowingState : FruitState
         if(Context.Settings.GrowTime <= CurrentTimer)
         {
             //Fruit büyüdü. Mediator'a haber ver
+            if(Context.Rigidbody != null) Context.Rigidbody.useGravity = true;// Meyveyi aðaçtan kopardýk.
             return FruitStateMachine.EFruitState.Ripening;
         }
 

@@ -13,7 +13,7 @@ public class FruitIdleState : FruitState
 
     public override void EnterState()
     {
-
+        Context.Rigidbody.useGravity = false;
     }
     public override void ExitState()
     {
