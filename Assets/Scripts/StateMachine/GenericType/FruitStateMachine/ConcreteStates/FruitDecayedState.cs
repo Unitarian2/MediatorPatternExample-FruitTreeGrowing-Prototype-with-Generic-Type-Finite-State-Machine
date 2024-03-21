@@ -14,6 +14,7 @@ public class FruitDecayedState : FruitState
     public override void EnterState()
     {
         CurrentTimer = 0f;
+        Context.AssignedTree.Mediator.OnDecayed(Context.AssignedTree);//Mediator'a haber gidiyor.
     }
     public override void ExitState()
     {

@@ -13,6 +13,7 @@ public class FruitRipeningState : FruitState
     {
         CurrentTimer = 0;
         Debug.Log("Started Ripening");
+        Context.AssignedTree.Mediator.OnStartedRipening(Context.AssignedTree);//Mediator'a haber gidiyor.
     }
 
     public override void ExitState()

@@ -77,6 +77,7 @@ MonoBehaviour:
   spawnPointParent: {fileID: 7693456526092745784}
   spawnParent: {fileID: 6466722551461198788}
   _settings: {fileID: 11400000, guid: f608123cdfae29641b219896afed2821, type: 2}
+  _mediator: {fileID: 11400000, guid: 29cf6fede928d5541ad90883c2fd723b, type: 2}
 --- !u!114 &4146244046628311007
 MonoBehaviour:
   m_ObjectHideFlags: 0

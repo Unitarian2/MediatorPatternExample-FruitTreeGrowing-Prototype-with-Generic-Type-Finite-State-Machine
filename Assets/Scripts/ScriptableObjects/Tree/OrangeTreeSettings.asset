@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6556ff0834e70814b9444fd68c2de38b, type: 3}
   m_Name: OrangeTreeSettings
   m_EditorClassIdentifier: 
-  fruitPrefabs:
-  - {fileID: 3900510228853476816, guid: b07b1c5c8cf0ade4eb495d794c3a62fe, type: 3}
-  spawnTime: 7
+  fruitSpawnInfo:
+    fruitPrefabs:
+    - {fileID: 3900510228853476816, guid: b07b1c5c8cf0ade4eb495d794c3a62fe, type: 3}
+    spawnTime: 7

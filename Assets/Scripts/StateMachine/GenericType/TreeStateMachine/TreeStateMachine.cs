@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityUtils;
 
 public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
@@ -20,12 +22,16 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
 
     [Header("ScriptableObject Data")]
     [SerializeField] private TreeSettings _settings;
+    [SerializeField] private TreeMediator _mediator;
+
+    //Properties
+    public TreeContext Context => _context;
 
     private void Awake()
     {
         fruitFactory = GetComponent<FruitFactory>();
 
-        _context = new(_settings, spawnPointParent.GetAllChildGameObject(), spawnParent, fruitFactory);
+        _context = new(_settings, spawnPointParent.GetAllChildGameObject(), spawnParent, fruitFactory, _mediator);
         _context.Init();
 
         InitializeStates();
@@ -42,5 +48,15 @@ public class TreeStateMachine : StateManager<TreeStateMachine.ETreeState>
     public void ActivateTree()
     {
         CurrentState = States[ETreeState.Active];
+    }
+
+    private void OnEnable()
+    {
+        _context.OnEnable();
+    }
+
+    private void OnDisable()
+    {
+        _context.OnDisable();
     }
 }

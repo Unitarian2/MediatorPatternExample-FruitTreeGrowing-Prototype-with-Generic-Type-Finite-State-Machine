@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46de8787f792ed459d774726ca91223, type: 3}
   m_Name: PearSettings
   m_EditorClassIdentifier: 
-  GrowTime: 15
+  GrowTime: 40
   RipenTime: 15
   DecayTime: 50
   startSize: 0.3

@@ -8,6 +8,9 @@ public class ForestManager : MonoBehaviour
     [SerializeField] private Transform treeParent;
     private TreeStateMachine[] trees;
 
+    [SerializeField] private float averageSpawnTime;
+    [SerializeField] private float totalSpawnTime;
+
     private void Awake()
     {
         trees = treeParent.GetAllChildren<TreeStateMachine>();
@@ -27,6 +30,18 @@ public class ForestManager : MonoBehaviour
     
     void Update()
     {
-        
+        if (trees.Length > 0)
+        {
+            float spawnTime = 0;
+            foreach (TreeStateMachine tree in trees)
+            {
+                spawnTime += tree.Context.CurrentSpawnInfo.spawnTime;
+            }
+
+            averageSpawnTime = spawnTime / trees.Length;
+            totalSpawnTime = spawnTime;
+            spawnTime = 0;
+
+        }
     }
 }

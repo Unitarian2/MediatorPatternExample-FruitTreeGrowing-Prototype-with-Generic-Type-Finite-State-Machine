@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6556ff0834e70814b9444fd68c2de38b, type: 3}
-  m_Name: PearTreeSettings
+  m_Script: {fileID: 11500000, guid: 9de83778730d04b4a989ae8e78bae2a3, type: 3}
+  m_Name: TreeMediator
   m_EditorClassIdentifier: 
-  fruitSpawnInfo:
-    fruitPrefabs:
-    - {fileID: 5649959123457640926, guid: 9656dad5efaf34c4d9747a69ab41f2c8, type: 3}
-    spawnTime: 15

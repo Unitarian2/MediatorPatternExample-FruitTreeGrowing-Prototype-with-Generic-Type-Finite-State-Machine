@@ -19,6 +19,7 @@ public class FruitGrowingState : FruitState
         CurrentTimer = 0;
         CurrentRate = 1f / Context.Settings.GrowTime;//Rate hesaplamasý için lazým
         Context.Transform.localScale = new Vector3(Context.Settings.startSize, Context.Settings.startSize, Context.Settings.startSize);//Fruit baþlangýç size'a getiriliyor.
+        Context.AssignedTree.Mediator.OnSpawned(Context.AssignedTree);//Mediator'a haber gidiyor.
     }
     public override void ExitState()
     {   

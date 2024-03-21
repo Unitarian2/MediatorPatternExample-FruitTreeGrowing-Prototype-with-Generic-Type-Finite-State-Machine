@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46de8787f792ed459d774726ca91223, type: 3}
   m_Name: AppleSettings
   m_EditorClassIdentifier: 
-  GrowTime: 10
+  GrowTime: 35
   RipenTime: 25
   DecayTime: 30
   startSize: 0.5

@@ -44,7 +44,7 @@ public class TreeActiveState : TreeState
     public override void UpdateState()
     {
         timer += Time.deltaTime;
-        if(timer >= Context.Settings.spawnTime)
+        if(timer >= Context.CurrentSpawnInfo.spawnTime)
         {
             //Spawn a Fruit
             Context.SpawnFruit();
