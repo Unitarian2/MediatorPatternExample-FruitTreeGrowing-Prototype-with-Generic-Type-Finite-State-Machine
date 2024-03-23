@@ -79,6 +79,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
     public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
     public float AppliedMovementZ { get { return appliedMovement.z; } set { appliedMovement.z = value; } }
+    public PlayerInputAction PlayerInputAction => playerInputAction;
 
     private void Awake()
     {
