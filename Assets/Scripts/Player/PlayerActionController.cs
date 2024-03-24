@@ -1,7 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,8 +13,12 @@ public class PlayerActionController : MonoBehaviour
 
     bool isInteractPressed;
     bool isInteracting;
+    public GameObject hoveredObject;//Bunu debug için ekledik.HandlePickupSearch içinde local field'a taþýnmasý gerek.
+    private IPickupable hoveredItem;
+    [SerializeField] private TextMeshProUGUI hoveredItemName;
 
-    public float PickupRadius = 3f;
+    public float PickupSphereRadius = 0.5f;
+    public float PickupDistance = 1f;
     private Dictionary<IPickupable, bool> aimedObjects = new Dictionary<IPickupable, bool>();
 
     // Start is called before the first frame update
@@ -41,89 +46,71 @@ public class PlayerActionController : MonoBehaviour
     private void HandlePickupSearch()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        RaycastHit[] hits = Physics.SphereCastAll(ray, 0.5f);
-
-        Dictionary<IPickupable, bool> tempAimedObjects = new Dictionary<IPickupable, bool>();
-
-        foreach (var hit in hits)
+        RaycastHit[] hits = Physics.SphereCastAll(ray, PickupSphereRadius);
+        if(hits.Length == 0)
         {
-            //Bize SphereCast'in çarptýðý IPickupable tipindeki gameobject'ler lazým sadece
-            if (hit.collider.gameObject.TryGetComponent<IPickupable>(out var pickupableObject))
-            {
-                tempAimedObjects[pickupableObject] = true;
-                pickupableObject.UpdateOverlay(true);
+            return;
+        }
 
-                // Dictionary'de zaten varmýþ. Sadece value güncelliyoruz.
-                if (aimedObjects.ContainsKey(pickupableObject))
+        RaycastHit closestHit = hits[0];
+
+        if(hits.Length > 1)
+        {
+            float closestHitDistance = Mathf.Infinity;
+            foreach (RaycastHit hit in hits)
+            {
+                //Ray'e en yakýn cismi hoverlýyoruz.
+                if (closestHitDistance > Vector3.Distance(hit.point, ray.origin))
                 {
-                    aimedObjects[pickupableObject] = true;
+                    //Cismin IPickupable implement etmiþ olmasý lazým.
+                    if(hit.collider.gameObject.TryGetComponent<IPickupable>(out var po))
+                    {
+                        
+                        {
+                            closestHit = hit;
+                            closestHitDistance = Vector3.Distance(hit.point, ray.origin);
+                        }
+                    }
                 }
-                else
-                {
-                    // Dictionary'de yokmuþ. Ekliyoruz.
-                    aimedObjects.Add(pickupableObject, true);
-                }
+                    
             }
         }
 
-        //// aimedObjects sözlüðünde olmayan nesnelerin Overlay kapatýyoruz.
-        //foreach (var kvp in aimedObjects)
-        //{
-        //    if (!tempAimedObjects.ContainsKey(kvp.Key))
-        //    {
-        //        aimedObjects[kvp.Key] = false;
-        //        kvp.Key.UpdateOverlay(false);
-        //    }
-        //}
-        foreach (var kvp in aimedObjects.Keys.ToList())
+        //Pickup edilebilir bir mesafede olmasý lazým
+        if (Vector3.Distance(closestHit.point, transform.position) < PickupDistance)
         {
-            // Eðer tempAimedObjects sözlüðünde bu anahtar yoksa, deðeri false yap
-            if (!tempAimedObjects.ContainsKey(kvp))
-            {
-                aimedObjects[kvp] = false;
-                kvp.UpdateOverlay(false);
-            }
+            hoveredObject = closestHit.collider.transform.gameObject;
         }
-
+        else
+        {
+            hoveredObject = null;
+            hoveredItemName.text = "";
+            return;
+        }
+            
+        if (hoveredObject.TryGetComponent<IPickupable>(out var pickupableObject))
+        {
+            hoveredItemName.text = "(E) Pickup " + pickupableObject.GetDisplayName();
+            hoveredItem = pickupableObject;
+        }
+        else
+        {
+            //IPickupable'a sahip bir cisime niþan almamýþýz. Interaction olmaz.
+            hoveredObject = null;
+            hoveredItemName.text = "";
+        }
     }
 
     private void HandleInteraction()
     {
-        if(!isInteracting && isInteractPressed)
+        //Hali hazýrda interaction sürecinde deðilsek, interaction butonuna basýlmýþsa ve üzerine hovered olmuþ bir object varsa, interaction baþlar
+        if(!isInteracting && isInteractPressed && hoveredObject != null)
         {
             //Interaction baþlar
             isInteracting = true;
-
-
-
+            hoveredItem.TriggerPickupAction();
+            isInteracting = false;
         }
     }
 
-    List<IPickupable> GetPickupablesInCircle(Vector3 center, float radius)
-    {
-        // Çember içindeki game object'leri tutmak için bir liste oluþtur
-        List<IPickupable> pickups = new List<IPickupable>();
-
-        // Çember içindeki tüm collider'larý al
-        Collider[] colliders = Physics.OverlapSphere(center, radius);
-
-        // Her collider'ý döngüye al
-        foreach (var collider in colliders)
-        {
-            // Collider'a sahip game object'i al
-            GameObject obj = collider.gameObject;
-
-            // Eðer IPickupable arayüzüne sahipse, listeye ekle
-            IPickupable pickupable = obj.GetComponent<IPickupable>();
-            if (pickupable != null)
-            {
-                pickups.Add(pickupable);
-            }
-        }
-
-        // Tüm IPickupable game object'leri döndür
-        return pickups;
-    }
-
-    
 }

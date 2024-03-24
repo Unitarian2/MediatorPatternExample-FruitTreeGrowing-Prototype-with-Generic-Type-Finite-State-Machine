@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="FruitSettings" , menuName ="FruitSettings/Fruit")]
 public class FruitSettings : ScriptableObject
 {
+    [Header("General")]
+    public string FruitDisplayName;
+
+    [Header("Lifecycle")]
     public float GrowTime = 10f;
     public float RipenTime = 5f;
     public float DecayTime = 20f;

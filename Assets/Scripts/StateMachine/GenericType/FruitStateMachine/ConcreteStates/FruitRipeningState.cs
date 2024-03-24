@@ -14,6 +14,10 @@ public class FruitRipeningState : FruitState
         CurrentTimer = 0;
         Debug.Log("Started Ripening");
         Context.AssignedTree.Mediator.OnStartedRipening(Context.AssignedTree);//Mediator'a haber gidiyor.
+        if (Context.GameObject.TryGetComponent<MeshCollider>(out var meshCollider))
+        {
+            meshCollider.enabled = true;
+        }
     }
 
     public override void ExitState()

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46de8787f792ed459d774726ca91223, type: 3}
   m_Name: OrangeSettings
   m_EditorClassIdentifier: 
+  FruitDisplayName: Orange
   GrowTime: 45
   RipenTime: 20
   DecayTime: 20

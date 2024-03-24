@@ -28,6 +28,7 @@ public class FruitContext
 
     public FruitSettings Settings => settings;
     public Transform Transform => transform;
+    public GameObject GameObject => gameObject;
     public Rigidbody Rigidbody { get { return rb; } set { rb = value; } }
     public bool IsInventoryItem { get { return isInventoryItem; } set { isInventoryItem = value; } }
 
